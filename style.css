@@ -1,0 +1,12 @@
+.date-navigator {
+  display: flex;
+}
+.date-navigator button {
+  cursor: pointer;
+}
+.current-date {
+  flex: 3;
+}
+.prev-date, .next-date {
+  flex: 1;
+}
