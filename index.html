@@ -17,9 +17,85 @@
       <button class="current-date" alt="current"></button>
       <button class="next-date" alt="next">></button>
     </nav>
+    <ul class="actions"></ul>
   </header>
   <script src="js/moment.js"></script>
   <script src="js/scripts.js"></script>
-  <script></script>
+  <script>
+    let now = moment();
+    const dateNav = document.querySelector('.date-navigator');
+    const prevDateBtn =  dateNav.querySelector('.prev-date');
+    const currentDateBtn = dateNav.querySelector('.current-date');
+    const nextDateBtn =  dateNav.querySelector('.next-date');
+
+    function displayDate(date = now) {
+      currentDateBtn.innerHTML = `
+          <div>${date.format('dddd')}</div>
+          <div>${date.format('MMMM Do, YYYY')}</div>
+      `
+    }
+
+    function goBack() {
+      displayDate(now.subtract(1, 'day'));
+    }
+
+    function goForward() {
+      if (moment().isSame( now, 'd' )) return
+      displayDate(now.add(1, 'day'));
+    }
+
+    function goToToday() {
+      if (moment().isSame( now, 'd' )) return
+      now = moment();
+      displayDate(now);
+    }
+
+    prevDateBtn.addEventListener('click', goBack);
+    nextDateBtn.addEventListener('click', goForward);
+    currentDateBtn.addEventListener('click', goToToday)
+
+    displayDate(now);
+
+    const actions = document.querySelector('.actions');
+
+    let actionsList = [ {
+          "name": "code",
+          "color": "pink",
+          "value": "hex",
+          "done": false,
+        }, {
+          "name" : "sew",
+          "color": "gray",
+          "value": "hex",
+          "done": true,
+        }, {
+          "name": "eat",
+          "color": "orange",
+          "value": "hex",
+          "done": true,
+        }, {
+          "name": "draw",
+          "color": "yellow",
+          "value": "hex",
+          "done": false,
+        },
+    ]
+
+    function displayActions( items = actionsList ) {
+      console.log(items);
+      actions.innerHTML = items.map((item, i) => {
+        document.documentElement.style.setProperty(`--action${i}`, item.color);
+        return `
+            <li class="action" style="color:var(--action${i}); border: 1px solid var(--action${i});">
+              <input type="checkbox" id="action${i}" ${item.done ? 'checked' : ''}/>
+              <label for="action${i}">${item.name}</label>
+            </li>
+        `
+      }).join("")
+    }
+
+    displayActions()
+
+  </script>
 </body>
 </html>
