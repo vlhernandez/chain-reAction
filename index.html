@@ -23,6 +23,7 @@
   <script src="js/scripts.js"></script>
   <script>
     let now = moment();
+    const formattedDate = moment().format("YYYYMd");
     const dateNav = document.querySelector('.date-navigator');
     const prevDateBtn =  dateNav.querySelector('.prev-date');
     const currentDateBtn = dateNav.querySelector('.current-date');
@@ -58,6 +59,32 @@
 
     const actions = document.querySelector('.actions');
 
+    let calendar = {}
+    calendar[formattedDate] = [
+        {
+          "name": "code",
+          "color": "pink",
+          "value": "hex",
+          "done": false,
+        }, {
+          "name" : "sew",
+          "color": "gray",
+          "value": "hex",
+          "done": true,
+        }, {
+          "name": "eat",
+          "color": "orange",
+          "value": "hex",
+          "done": true,
+        }, {
+          "name": "draw",
+          "color": "yellow",
+          "value": "hex",
+          "done": false,
+        },
+      ]
+
+
     let actionsList = [ {
           "name": "code",
           "color": "pink",
@@ -82,7 +109,6 @@
     ]
 
     function displayActions( items = actionsList ) {
-      console.log(items);
       actions.innerHTML = items.map((item, i) => {
         document.documentElement.style.setProperty(`--action${i}`, item.color);
         return `
@@ -93,8 +119,13 @@
         `
       }).join("")
     }
-
     displayActions()
+
+    function newDisplayActions( items = calendar) {
+      for( item in items) {
+        items[formattedDate].forEach((el, i) => console.log(el, i));
+      }
+    }
 
   </script>
 </body>
