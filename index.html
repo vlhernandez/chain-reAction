@@ -11,11 +11,11 @@
   <header>
     <div>Logo</div>
     <h1>Chain reAction</h1>
-    <h2>Repeat an Action | Stick to a Habit | See the Reaction</h2>
+    <h2>Repeat the Action to Stick to a Habit | See the Reaction</h2>
     <nav class="date-navigator">
-      <button class="prev__date" alt="previous"><</button>
-      <button class="current__date"></button>
-      <button class="next__date" alt="next">></button>
+      <button class="prev-date" alt="previous"><</button>
+      <button class="current-date"></button>
+      <button class="next-date" alt="next">></button>
     </nav>
   </header>
   <script src="js/moment.js"></script>
@@ -23,15 +23,30 @@
   <script>
     const now = moment();
     const dateNav = document.querySelector('.date-navigator');
-    const currentDate = dateNav.querySelector('.current__date');
+    const prevDateBtn =  dateNav.querySelector('.prev-date');
+    const currentDateBtn = dateNav.querySelector('.current-date');
+    const nextDateBtn =  dateNav.querySelector('.next-date');
 
-    function displayDate(date) {
-      currentDate.innerHTML = `
+    function displayDate(date = now) {
+      currentDateBtn.innerHTML = `
           <div>${date.format('dddd')}</div>
           <div>${date.format('MMMM Do, YYYY')}</div>
       `
     }
+
+    function goBack() {
+      displayDate(now.subtract(1, 'day'));
+    }
+
+    function goForward() {
+      if (moment().isSame( now, 'd' )) return
+      displayDate(now.add(1, 'day'));
+    }
+
+    prevDateBtn.addEventListener('click', goBack);
+    nextDateBtn.addEventListener('click', goForward);
     displayDate(now);
+
 
   </script>
 </body>
