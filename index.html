@@ -22,46 +22,20 @@
   <script src="js/moment.js"></script>
   <script src="js/scripts.js"></script>
   <script>
+
+    //------------- DATE -------------
     let now = moment();
-    const formattedDate = moment().format("YYYYMd");
+    const today = now.format("YYYY-M-D");
     const dateNav = document.querySelector('.date-navigator');
     const prevDateBtn =  dateNav.querySelector('.prev-date');
     const currentDateBtn = dateNav.querySelector('.current-date');
     const nextDateBtn =  dateNav.querySelector('.next-date');
 
-    function displayDate(date = now) {
-      currentDateBtn.innerHTML = `
-          <div>${date.format('dddd')}</div>
-          <div>${date.format('MMMM Do, YYYY')}</div>
-      `
-    }
 
-    function goBack() {
-      displayDate(now.subtract(1, 'day'));
-    }
-
-    function goForward() {
-      if (moment().isSame( now, 'd' )) return
-      displayDate(now.add(1, 'day'));
-    }
-
-    function goToToday() {
-      if (moment().isSame( now, 'd' )) return
-      now = moment();
-      displayDate(now);
-    }
-
-    prevDateBtn.addEventListener('click', goBack);
-    nextDateBtn.addEventListener('click', goForward);
-    currentDateBtn.addEventListener('click', goToToday)
-
-    displayDate(now);
-
+    //------------- ACTIONS -------------
+    let entries = {}
     const actions = document.querySelector('.actions');
-
-    let calendar = {}
-    calendar[formattedDate] = [
-        {
+    let actionsList = [ {
           "name": "code",
           "color": "pink",
           "value": "hex",
@@ -84,30 +58,59 @@
         },
       ]
 
+    //------------- STORE DATE -------------
+    function checkForActions( date) {
+      if (entries.hasOwnProperty(date)) {
+        console.table('today', date, 'is already logged, just display it')
+        console.table(entries)
+      } else {
+        console.table('today', date, 'isnt logged, so log it!!!');
+        entries[date] = ['actions go here'];
+        console.table(entries)
+      }
+    }
 
-    let actionsList = [ {
-          "name": "code",
-          "color": "pink",
-          "value": "hex",
-          "done": false,
-        }, {
-          "name" : "sew",
-          "color": "gray",
-          "value": "hex",
-          "done": true,
-        }, {
-          "name": "eat",
-          "color": "orange",
-          "value": "hex",
-          "done": true,
-        }, {
-          "name": "draw",
-          "color": "yellow",
-          "value": "hex",
-          "done": false,
-        },
-    ]
+    //------------- DISPLAY DATE -------------
+    function displayDate(date = now) {
+      currentDateBtn.innerHTML = `
+          <div>${date.format('dddd')}</div>
+          <div>${date.format('MMMM Do, YYYY')}</div>
+      `
+      displayActions();
+    }
 
+    function goBack() {
+      let back = now.subtract(1, 'day')
+      displayDate(back);
+      displayDatedActions(back.format("YYYY-M-D"));
+      checkForActions(back.format("YYYY-M-D"));
+    }
+
+    function goForward() {
+      if (moment().isSame( now, 'd' )) return
+      let forward = now.add(1, 'day');
+      displayDate(forward);
+      displayDatedActions(forward.format("YYYY-M-D"));
+      checkForActions(forward.format("YYYY-M-D"));
+    }
+
+    function goToToday() {
+      if (moment().isSame( now, 'd' )) return
+      now = moment();
+      displayDate(now);
+      displayDatedActions(now);
+      checkForActions(now.format("YYYY-M-D"));
+    }
+
+    prevDateBtn.addEventListener('click', goBack);
+    nextDateBtn.addEventListener('click', goForward);
+    currentDateBtn.addEventListener('click', goToToday)
+
+    displayDate(now);
+
+    //------------- CREATE ACTION -------------
+
+    //------------- DISPLAY ACTIONS -------------
     function displayActions( items = actionsList ) {
       actions.innerHTML = items.map((item, i) => {
         document.documentElement.style.setProperty(`--action${i}`, item.color);
@@ -121,11 +124,14 @@
     }
     displayActions()
 
-    function newDisplayActions( items = calendar) {
-      for( item in items) {
-        items[formattedDate].forEach((el, i) => console.log(el, i));
-      }
+
+
+    //------------- DISPLAY ACTIONS FOR SPECIFIC DATE -------------
+
+    function displayDatedActions( date ) {
+      console.log('log actions for this date:', date);
     }
+
 
   </script>
 </body>
