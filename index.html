@@ -12,11 +12,21 @@
     <div>Logo</div>
     <h1>Chain reAction</h1>
     <h2>Repeat the Action to Stick to a Habit | See the Reaction</h2>
+
     <nav class="date-navigator">
       <button class="prev-date" alt="previous"><</button>
       <button class="current-date" alt="current"></button>
       <button class="next-date" alt="next">></button>
     </nav>
+
+    <form class="add-action">
+      <label for="newAction">Action Name</label>
+      <input id="newAction" type="text" name="action" placeholder="Action Name" required>
+      <label for="actionColor">Action Color</label>
+      <input id="actionColor" type="color" name="actionColor" value="#1a0040">
+      <input type="submit" value="+ Action">
+    </form>
+
     <ul class="actions"></ul>
   </header>
   <script src="js/moment.js"></script>
