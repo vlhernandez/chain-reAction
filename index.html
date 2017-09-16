@@ -21,7 +21,7 @@
 
     <form class="add-action">
       <label for="newAction">Action Name</label>
-      <input id="newAction" type="text" name="action" placeholder="Action Name" required>
+      <input id="newAction" type="text" name="actionName" placeholder="Action Name" required>
       <label for="actionColor">Action Color</label>
       <input id="actionColor" type="color" name="actionColor" value="#1a0040">
       <input type="submit" value="+ Action">
@@ -32,6 +32,8 @@
   <script src="js/moment.js"></script>
   <script src="js/scripts.js"></script>
   <script>
+    //------------- FORMS -------------
+    const addAction = document.querySelector(".add-action");
 
     //------------- DATE -------------
     let now = moment();
@@ -118,7 +120,15 @@
 
     displayDate(now);
 
-    //------------- CREATE ACTION -------------
+    //------------- STORE ACTION -------------
+    function storeAction ( e ) {
+      e.preventDefault();
+      console.log(this);
+      const name = this.querySelector( '[name="ActionName"]');
+      const color = this.querySelector('[name="ActionColor"]');
+      console.log('name...', name)
+      console.log('color...', color)
+    }
 
     //------------- DISPLAY ACTIONS -------------
     function displayActions( items = actionsList ) {
@@ -141,6 +151,10 @@
     function displayDatedActions( date ) {
       console.log('log actions for this date:', date);
     }
+
+
+    //------------- EVENT LISTENERS -------------
+    addAction.addEventListener( "submit", storeAction );
 
 
   </script>
