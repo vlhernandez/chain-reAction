@@ -70,7 +70,11 @@
         },
       ]
 
-    //------------- STORE DATE -------------
+    //------------- STORE DATE and ACTION -------------
+    // check if date has already been entered in storage
+    // check for any actions
+    // store the action
+
     function checkForActions( date) {
       if (entries.hasOwnProperty(date)) {
         console.table('today', date, 'is already logged, just display it')
@@ -81,6 +85,16 @@
         console.table(entries)
       }
     }
+
+    function storeAction ( e ) {
+      e.preventDefault();
+      console.log(this);
+      const name = this.querySelector( '[name=actionName]').value;
+      const color = this.querySelector('[name=actionColor]').value;
+      localStorage.setItem('actions', JSON.stringify(entries));
+    }
+
+
 
     //------------- DISPLAY DATE -------------
     function displayDate(date = now) {
@@ -120,15 +134,6 @@
 
     displayDate(now);
 
-    //------------- STORE ACTION -------------
-    function storeAction ( e ) {
-      e.preventDefault();
-      console.log(this);
-      const name = this.querySelector( '[name="ActionName"]');
-      const color = this.querySelector('[name="ActionColor"]');
-      console.log('name...', name)
-      console.log('color...', color)
-    }
 
     //------------- DISPLAY ACTIONS -------------
     function displayActions( items = actionsList ) {
