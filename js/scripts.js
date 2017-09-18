@@ -20,6 +20,10 @@
         entries[today] = [];
       }
 
+      if( allActions.length < 1 ){
+        console.log('no actions logged')
+      }
+
       const actions = entries[today];
       const name = ( this.querySelector('[name=actionName]')).value;
       const color = ( this.querySelector('[name=actionColor]')).value;
@@ -29,8 +33,9 @@
         color,
         done: false,
       }
-      actions.push(action);
       allActions.push(action);
+
+      actions.push(action);
       entries['allActions'] = allActions;
 
       populateActions( entries, actionsList);
@@ -83,12 +88,23 @@
     function populateActions( entries = {}, list, date = today) {
       const items = entries[date];
 
-      if(Object.keys(entries).length < 1) {
+      if(Object.keys(entries).length < 1 && Object.keys(allActions).length < 1) {
         list.innerHTML = `<li>Enter an item to get started</li>`;
         return
-      } else if ( !items ) {
-          list.innerHTML = `<p>Nothing exists for this date</p>`
-          console.log('entries for ', date, 'are...',  entries[date])
+      } else if ( !items && Object.keys(allActions).length > 0 ) {
+          console.log('Nothing exists for this date. Entries for ', date, 'are...',  entries[date]);
+          console.log('all Entries existing actions  are ...', entries['allActions']);
+
+          list.innerHTML = allActions.map((action, i) => {
+           document.documentElement.style.setProperty(`--action${i}`, action.color);
+            return `
+              <li class="action" style="color:var(--action${i}); border: 1px solid var(--action${i});">
+                <input type="checkbox" data-index=${i} id="action${i}" ${action.done ? 'checked' : ""} />
+                <label for="action${i}">${action.name}</label>
+              </li>
+            `;
+          }).join("")
+
           return
       }
 
@@ -104,9 +120,19 @@
     }
 
 
+    function toggleDone(e) {
+      if (!e.target.matches('input')) return; // skip this unless it's an input
+      const el = e.target;
+      const index = el.dataset.index;
+      entries[today][index].done = !entries[today][index].done;
+      localStorage.setItem('entries', JSON.stringify(entries));
+      populateList(entries, actionsList, today);
+    }
+
 
 
     //------------- EVENT LISTENERS -------------
     addAction.addEventListener( "submit", storeAction );
+    actionsList.addEventListener('click', toggleDone);
 
     populateActions(entries, actionsList);
