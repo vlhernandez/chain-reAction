@@ -47,12 +47,34 @@
 
 
 
-    //------------- DISPLAY DATE -------------
+    //------------- DATE NAVIGATION AND DISPLAY -------------
     function displayDate(date = now) {
       currentDateBtn.innerHTML = `
           <div>${date.format('dddd')}</div>
           <div>${date.format('MMMM Do, YYYY')}</div>
       `
+    }
+
+    function handleDateNav(e) {
+      console.log(e.target.dataset);
+
+      if (e.target.dataset == 'goBack') {
+        let back = now.subtract(1, 'day')
+        displayDate(back);
+        populateActions(entries, actionsList, back.format("YYYY-M-D"));
+
+      } else if (e.target.dataset == 'goFoward') {
+        if (moment().isSame( now, 'd' )) return
+        let forward = now.add(1, 'day');
+        displayDate(forward);
+        populateActions(entries, actionsList, forward.format("YYYY-M-D"));
+
+      } else {
+        if (moment().isSame( now, 'd' )) return
+        now = moment();
+        displayDate(now);
+        populateActions(entries, actionsList, now.format("YYYY-M-D"));
+      }
     }
 
     function goBack() {
@@ -74,15 +96,6 @@
       displayDate(now);
       populateActions(entries, actionsList, now.format("YYYY-M-D"));
     }
-
-    prevDateBtn.addEventListener('click', goBack);
-    nextDateBtn.addEventListener('click', goForward);
-    currentDateBtn.addEventListener('click', goToToday)
-
-    displayDate(now);
-
-
-
 
 
     function populateActions( entries = {}, list, date = today) {
@@ -132,6 +145,14 @@
 
 
     //------------- EVENT LISTENERS -------------
+    // prevDateBtn.addEventListener('click', goBack);
+    // nextDateBtn.addEventListener('click', goForward);
+    // currentDateBtn.addEventListener('click', goToToday)
+    dateNav.addEventListener('click', handleDateNav);
+
+    displayDate(now);
+
+
     addAction.addEventListener( "submit", storeAction );
     actionsList.addEventListener('click', toggleDone);
 
