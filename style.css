@@ -10,3 +10,8 @@
 .prev-date, .next-date {
   flex: 1;
 }
+
+
+.actions {
+  list-style: none;
+}
