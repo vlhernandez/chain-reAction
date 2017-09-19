@@ -1,3 +1,16 @@
+  const dateNavBtns = document.querySelectorAll('.date-navigator button')
+  function logText(e) {
+    console.log(this.classList.value);
+    // e.stopPropagation(); // stop bubbling!
+    // console.log(this);
+  }
+  dateNavBtns.forEach(dateBtn => dateBtn.addEventListener('click', logText, {
+    capture: false,
+    once:false
+  }));
+
+
+
     const addAction = document.querySelector(".add-action");
 
     let now = moment();
