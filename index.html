@@ -25,14 +25,15 @@
       <button class="next-date" data-datenav="goForward" alt="next">></button>
     </nav>
 
-    <form class="add-action">
-      <label for="newAction">Action Name</label>
-      <input id="newAction" type="text" name="actionName" placeholder="Action Name" required>
-      <label for="actionColor">Action Color</label>
-      <input id="actionColor" type="color" name="actionColor" value="#1a0040">
-      <input type="submit" value="+ Action">
-    </form>
-
+    <div class="form-drawer">
+      <form class="add-action">
+        <label for="newAction">Enter an Action Name</label>
+        <input id="newAction" type="text" name="actionName" placeholder="Enter an action name" required>
+        <label for="actionColor">Select a color for the action</label>
+        <input id="actionColor" type="color" name="actionColor" value="#1a0040">
+        <input type="submit" value="+ Action">
+      </form>
+    </div>
     <ul class="actions">
       <li>loading your actions</li>
     </ul>

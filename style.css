@@ -30,7 +30,6 @@ header {
 
 .date-navigator {
   display: flex;
-  margin-bottom: 20px;
 }
 .date-navigator button {
   cursor: pointer;
@@ -58,9 +57,12 @@ header {
 }
 
 
+
 .add-action {
   display: flex;
+  padding: 20px 0;
   justify-content: center;
+  background-color: #eaedee;
 }
 .add-action label {
   visibility: hidden;
