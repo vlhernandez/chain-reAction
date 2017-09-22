@@ -58,6 +58,55 @@ header {
 }
 
 
+.add-action {
+  display: flex;
+  justify-content: center;
+}
+.add-action label {
+  visibility: hidden;
+  height: 0;
+  width: 0;
+  font-size: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.add-action #newAction,
+.add-action input[type="submit"] {
+  padding: 10px;
+  outline: 0;
+  border: 1px solid rgba(0,0,0,.1);
+}
+
+.add-action #actionColor {
+  background-color: transparent;
+  border: 1px solid rgba(0, 0,0,.1);
+  -webkit-appearance: none;
+  width: 30px;
+  height: 30px;
+  padding: 2px;
+}
+
+
 .actions {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   list-style: none;
+  padding-left: 0;
+}
+
+.action {
+  text-align: center;
+  font-size: 2rem;
+  padding: .3rem;
+  margin: 11px;
+  cursor: pointer;
+  box-shadow: 0 0 0 0;
+  animation: pulse 3s infinite;
+  text-transform: uppercase;
+}
+
+.action input[type="checkbox"] {
+  visibility: hidden;
 }
