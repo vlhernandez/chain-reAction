@@ -58,14 +58,26 @@ header {
 }
 
 
+
 .form-drawer {
   background-color: #eaedee;
+  box-shadow: inset 0 -1px 9px hsla(264,100%,16%,.5);
+  max-height: 80px;
+  overflow: hidden;
+  transition: max-height 200ms cubic-bezier(.77,-.04, 1, 1);
 }
+
+/*.form-drawer.closed {
+  box-shadow: none;
+  max-height: 0;
+}*/
+
 .add-action {
   display: flex;
   padding: 20px 0;
   justify-content: center;
 }
+
 .add-action label {
   visibility: hidden;
   height: 0;
@@ -75,20 +87,36 @@ header {
   padding: 0;
   overflow: hidden;
 }
-.add-action #newAction,
-.add-action input[type="submit"] {
-  padding: 10px;
+
+.add-action input {
+  cursor: pointer;
   outline: 0;
-  border: 1px solid rgba(0,0,0,.1);
+  padding: 10px;
+  box-shadow: 0 4px 6px hsla(264, 89%, 8%, .5);
+  border: 1px solid hsla(264, 100%, 16%,.5);
+  transition: all 150ms linear;
+}
+
+.add-action #newAction {
+  cursor: text;
 }
 
 .add-action #actionColor {
   background-color: transparent;
-  border: 1px solid rgba(0, 0,0,.1);
   -webkit-appearance: none;
   width: 30px;
   height: 30px;
   padding: 2px;
+}
+
+.add-action input[type="submit"] {
+  letter-spacing: 2px;
+  color: #fff;
+  background-color: hsl(264, 100%, 16%);
+}
+
+.add-action input:hover {
+  box-shadow: none;
 }
 
 
@@ -98,6 +126,11 @@ header {
   flex-direction: column;
   list-style: none;
   padding-left: 0;
+}
+
+.actions p {
+  text-align: center;
+  font-size: 1.5rem;
 }
 
 .action {

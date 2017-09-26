@@ -78,7 +78,7 @@ function handleDateNav(e) {
 //------------- DISPLAY ACTIONS -------------
 function populateActions( allActions = [], list, date = today ) {
   if ( allActions.length < 1 ) {
-    list.innerHTML = `<li>Enter an item to get started</li>`;
+    list.innerHTML = `<p>Enter an item to get started</p>`;
     return;
   }
   list.innerHTML = allActions.map( (action, i) => {
