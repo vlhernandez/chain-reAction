@@ -83,7 +83,7 @@ function populateActions( allActions = [], list, date = today ) {
   }
   list.innerHTML = allActions.map( (action, i) => {
     document.documentElement.style.setProperty(`--action${i}`, action.color);
-    let styles = action.done[date] ? `color:#333;` : `color:transparent;`;
+    let styles = action.done[date] ? `color:var(--action${i});` : `color:transparent;`;
     let classes = action.done[date] ? 'done' : '';
     return `
       <li class="action" >

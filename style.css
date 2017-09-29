@@ -144,17 +144,18 @@ header {
   flex: 1;
   text-align: center;
   font-size: 1.25rem;
-  font-weight: 100;
+  font-weight: 600;
   padding: .5rem;
-  text-shadow: 0 2px 3px rgba(228,228,228,.3);
+  text-shadow: 0 1px 0 rgba(255,255,255,.4);
   -webkit-background-clip: text;
-  transition: all 5s ease;
+  transition: all 1s ease;
 }
 
 .action label.done {
+  font-weight: 100;
   text-shadow: none;
   -webkit-background-clip: unset;
-  text-shadow: 0 1px 0 rgba(255,255,255,.5);
+  text-shadow: 0 1px 1px black, 1px 0px 1px black, 0 -1px 1px white, -1px 0px 1px white;
 }
 
 .action input[type="checkbox"] {
