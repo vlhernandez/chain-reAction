@@ -83,12 +83,12 @@ function populateActions( allActions = [], list, date = today ) {
   }
   list.innerHTML = allActions.map( (action, i) => {
     document.documentElement.style.setProperty(`--action${i}`, action.color);
-    let styles = action.done[date] ? `color:#fff;` : `color:transparent;`;
+    let styles = action.done[date] ? `color:#333;` : `color:transparent;`;
     let classes = action.done[date] ? 'done' : '';
     return `
       <li class="action" >
         <input type="checkbox" data-index=${i} id="action${i}" ${action.done[date] ? "checked" : ""} />
-        <label for="action${i}" style="border: 1px solid var(--action${i}); background-color:var(--action${i}); ${styles}" class="${classes}">${action.name}</label>
+        <label for="action${i}" style="border-color: var(--action${i}); background-color:var(--action${i}); ${styles}" class="${classes}">${action.name}</label>
       </li>
     `;
   }).join("")
@@ -102,6 +102,7 @@ function toggleDone(e) {
   const currentDate = now.format('YYYY-M-D');
 
   allActions[index].done[currentDate] = !allActions[index].done[currentDate];
+  localStorage.setItem('allActions', JSON.stringify(allActions));
 
   populateActions(allActions, actionsList, currentDate);
 }
