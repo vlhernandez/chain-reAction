@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Chain reAction | Stick to a habit</title>
+  <link href="https://fonts.googleapis.com/css?family=Rubik::400,500,500i,900" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link />
+</head>
+<body>
+  <header>
+    <a  href="/" class="site-home">
+        <h1 class="title">Chain reAction
+          <img class="logo" src="assets/CRLogo.svg" />
+      </h1>
+        <h2 class="sub-title">Repeat the Action to Grow a Habit</h2>
+    </a>
+    <div class="logo-holder">
+    </div>
+  </header>
+    <div class="container">
+      This is the container
+      <div class="year">
+        This holds a single year
+      </div> <!-- .year -->
+      <div class="month">
+          This holds a single month
+      </div> <!-- .month -->
+      <div class="actions__legend">
+        this holds the actions legend
+      </div> <!-- .actions -->
+      <div class="days">
+        this holds each day block
+      </div>
+    </div> <!-- .container  -->
+  <script src="js/moment.js"></script>
+</body>
+<style>
+    .container{
+      border: 1px solid hotpink;
+    }
+    .year {
+      background: pink;
+      text-align: center;
+    }
+    .month {
+      background: yellow;
+      display: flex;
+      justify-content: space-around;
+    }
+    .actions__legend {
+      background: blue;
+      display: flex;
+      justify-content: space-evenly;
+    }
+    .days {
+      background: orange;
+    }
+</style>
+<script>
+  const now = moment();
+  const actions = JSON.parse(localStorage.getItem('allActions')) || [];
+
+  const year = document.querySelector(".year");
+  const nowYear = now.year();
+
+  const month = document.querySelector(".month")
+  const nowMonth = now.month();
+  const nowMonthFull = now.format('MMMM');
+
+  const legend = document.querySelector(".actions__legend");
+
+  const days = document.querySelector('.days');
+  const firstOfMonth = now.startOf('month');
+  const endOfMonth = now.endOf('month');
+
+
+  year.innerText = nowYear;
+
+  month.innerHTML = `<span class="mnt">${nowMonth}</span><span class="fullmnt">${nowMonthFull}</span>`;
+
+  legend.innerHTML = actions.map( action => {
+    return `
+      <div class="action" style="background-color:${action.color};">${action.name}</div>
+    `;
+  }).join('');
+
+
+
+</script>
+</html>
