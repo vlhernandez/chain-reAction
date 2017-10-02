@@ -30,7 +30,6 @@
         this holds the actions legend
       </div> <!-- .actions -->
       <div class="days">
-        this holds each day block
       </div>
     </div> <!-- .container  -->
   <script src="js/moment.js"></script>
@@ -56,6 +55,9 @@
     .days {
       background: orange;
     }
+    .day {
+      border: 1px solid black;
+    }
 </style>
 <script>
   const now = moment();
@@ -71,19 +73,34 @@
   const legend = document.querySelector(".actions__legend");
 
   const days = document.querySelector('.days');
-  const firstOfMonth = now.startOf('month');
-  const endOfMonth = now.endOf('month');
+  const daysInMonth = now.daysInMonth();
+  const startOfMonth = now.startOf('month');
 
 
   year.innerText = nowYear;
 
   month.innerHTML = `<span class="mnt">${nowMonth}</span><span class="fullmnt">${nowMonthFull}</span>`;
 
-  legend.innerHTML = actions.map( action => {
+  allActions = actions.map( action => {
     return `
       <div class="action" style="background-color:${action.color};">${action.name}</div>
     `;
   }).join('');
+
+  legend.innerHTML = allActions
+
+
+  const spanActions =  actions.map( action => {
+    return `
+    <span class="daily-action">${action.name}</span>
+    `
+  }).join('')
+
+  for (var i = 0; i < daysInMonth - 1; i++) {
+    if (i==0) { days.innerHTML += `<div class="day"><span>${startOfMonth.add(0, 'd').format('D dd')}</span>${spanActions}</div>`};
+
+    days.innerHTML += `<div class="day">${startOfMonth.add(1, 'd').format('D dd')}${spanActions}</div>`
+  }
 
 
 
