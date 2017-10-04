@@ -57,7 +57,18 @@
     }
     .day {
       border: 1px solid black;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
     }
+
+    .daily-action {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border: 1px solid gray;
+    }
+
 </style>
 <script>
   const now = moment();
@@ -87,20 +98,41 @@
     `;
   }).join('');
 
-  legend.innerHTML = allActions
+  legend.innerHTML = `<span class="spacer"></span>${allActions}`
 
 
-  const spanActions =  actions.map( action => {
+  const dailyActions =  actions.map( action => {
     return `
-    <span class="daily-action">${action.name}</span>
+    <span class="daily-action" style="background-color:${action.color}"></span></span>
     `
   }).join('')
+  
 
   for (var i = 0; i < daysInMonth - 1; i++) {
-    if (i==0) { days.innerHTML += `<div class="day"><span>${startOfMonth.add(0, 'd').format('D dd')}</span>${spanActions}</div>`};
+    if (i==0) {
+      days.innerHTML += `
+          <div class="day"><span>${startOfMonth.add(0, 'd').format('D dd')}</span>${dailyActions}</div>
+        `
+        };
 
-    days.innerHTML += `<div class="day">${startOfMonth.add(1, 'd').format('D dd')}${spanActions}</div>`
+    days.innerHTML += `
+        <div class="day"><span>${startOfMonth.add(1, 'd').format('D dd')}</span>${dailyActions}</div>
+      `
   }
+
+function populateActions( allActions = [], list, date = today ) {
+  list.innerHTML = allActions.map( (action, i) => {
+    document.documentElement.style.setProperty(`--action${i}`, action.color);
+    let styles = action.done[date] ? `color:var(--action${i});` : `color:transparent;`;
+    let classes = action.done[date] ? 'done' : '';
+    return `
+      <li class="action" >
+        <input type="checkbox" data-index=${i} id="action${i}" ${action.done[date] ? "checked" : ""} />
+        <label for="action${i}" style="border-color: var(--action${i}); background-color:var(--action${i}); ${styles}" class="${classes}">${action.name}</label>
+      </li>
+    `;
+  }).join("")
+}
 
 
 
